@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role-Based Access Control</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:450px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.panel{
+    margin-top:20px;
+    padding:15px;
+    border-radius:5px;
+    display:none;
+}
+
+.admin{
+    background:#ffe5e5;
+}
+
+.manager{
+    background:#fff3cd;
+}
+
+.user{
+    background:#d4edda;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Role-Based Access Control</h2>
+
+    <select id="role">
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="user">User</option>
+    </select>
+
+    <button onclick="checkAccess()">Check Access</button>
+
+    <div id="adminPanel" class="panel admin">
+        <h3>Admin Dashboard</h3>
+        <p>Full access to users, reports, and system settings.</p>
+    </div>
+
+    <div id="managerPanel" class="panel manager">
+        <h3>Manager Dashboard</h3>
+        <p>Access to reports and team management.</p>
+    </div>
+
+    <div id="userPanel" class="panel user">
+        <h3>User Dashboard</h3>
+        <p>Access to personal profile and basic features.</p>
+    </div>
+</div>
+
+<script>
+function checkAccess(){
+
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("managerPanel").style.display = "none";
+    document.getElementById("userPanel").style.display = "none";
+
+    let role = document.getElementById("role").value;
+
+    if(role === "admin"){
+        document.getElementById("adminPanel").style.display = "block";
+    }
+    else if(role === "manager"){
+        document.getElementById("managerPanel").style.display = "block";
+    }
+    else if(role === "user"){
+        document.getElementById("userPanel").style.display = "block";
+    }
+    else{
+        alert("Please select a role");
+    }
+}
+</script>
+
+</body>
+</html>

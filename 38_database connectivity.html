@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Connectivity</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:450px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+#result{
+    margin-top:20px;
+    padding:15px;
+    background:#f8f9fa;
+    border-radius:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Database Connectivity</h2>
+
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="email" id="email" placeholder="Enter Email">
+
+    <button onclick="saveData()">Save Data</button>
+
+    <div id="result">
+        Database response will appear here.
+    </div>
+</div>
+
+<script>
+function saveData(){
+
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+
+    fetch("http://localhost:3000/api/save-user",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            username:username,
+            email:email
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("result").innerHTML =
+        "<strong>Success:</strong><br>" +
+        JSON.stringify(data,null,2);
+    })
+    .catch(error => {
+        document.getElementById("result").innerHTML =
+        "Error connecting to database.";
+    });
+}
+</script>
+
+</body>
+</html>
